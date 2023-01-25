@@ -1,0 +1,458 @@
+﻿<Window x:Class="ArtGenerator.Views.MainWindow"
+        Name="Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:b="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Kunst Generator" Width="1280" Height="720"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        WindowState="Maximized"
+        Icon="/Images/Floppa icon.png"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="864"
+        MinWidth="1536"
+        >
+    
+    <!--Here are the styling elements for the MainWindow.xaml-->
+    <!--Here are the rotate animations for the hamburger images-->
+    <Window.Resources>
+        <Style TargetType="Image" x:Key="HamburgerImage">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="90"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Uid" Value="1">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeOut"/>
+                        <BeginStoryboard x:Name="FadeIn">
+                            <Storyboard Storyboard.TargetProperty="(Image.RenderTransform).(RotateTransform.Angle)">
+                                <DoubleAnimation From="90" To="180" Duration="0:0:0.15"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+                <Trigger Property="Uid" Value="0">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeIn"/>
+                        <BeginStoryboard x:Name="FadeOut">
+                            <Storyboard Storyboard.TargetProperty="(Image.RenderTransform).(RotateTransform.Angle)">
+                                <DoubleAnimation From="180" To="90" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Here are the slide animations for the side menu-->
+        <Style TargetType="StackPanel" x:Key="StylingSideMenuEffect" >
+            <Setter Property="Height" Value="{Binding ElementName=Window, Path=ActualHeight}"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Margin" Value="-200,0,0,0"/>
+            <Style.Triggers>
+                <Trigger Property="Uid" Value="1">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeOut"/>
+                        <BeginStoryboard x:Name="FadeIn">
+                            <Storyboard Storyboard.TargetProperty="(StackPanel.Margin)">
+                                <ThicknessAnimation From="-200,0,0,0" To="0,0,0,0" Duration="0:0:0.15"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+                <Trigger Property="Uid" Value="0">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeIn"/>
+                        <BeginStoryboard x:Name="FadeOut">
+                            <Storyboard Storyboard.TargetProperty="(StackPanel.Margin)">
+                                <ThicknessAnimation From="0,0,0,0" To="-200,0,0,0" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Here is the styling for the side menu-->
+        <Style TargetType="StackPanel" x:Key="StylingSideMenu">
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="#bb1E2436"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="{Binding ElementName=Window, Path=ActualHeight}"/>
+            <Setter Property="Width" Value="200"/>
+            <Style.Triggers>
+                <Trigger Property="Opacity" Value="0">
+                    <Setter Property="IsHitTestVisible" Value="False"/>
+                </Trigger>
+                <Trigger Property="Opacity" Value="1">
+                    <Setter Property="IsHitTestVisible" Value="True"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Canvas" x:Key="ZoomInDetail">
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="Background" Value="#4C000000"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Width" Value="{Binding PanelWidth}"/>
+            <Setter Property="Height" Value="{Binding PanelHeight}"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform Y="{Binding CanvasPanelHeightForZoom}" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="true">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeOut"/>
+                        <BeginStoryboard x:Name="FadeIn">
+                            <Storyboard Storyboard.TargetProperty="(Canvas.Opacity)">
+                                <DoubleAnimation From="0" To="1" Duration="0:0:0.15"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Trigger.EnterActions>
+                        <StopStoryboard BeginStoryboardName="FadeIn"/>
+                        <BeginStoryboard x:Name="FadeOut">
+                            <Storyboard Storyboard.TargetProperty="(Canvas.Opacity)">
+                                <DoubleAnimation From="1" To="0" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image" x:Key="ZoomInImage">
+            <Setter Property="Width" Value="{Binding PanelWidth}"/>
+            <Setter Property="Height" Value="{Binding PanelHeight}"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DropDownMenu" TargetType="StackPanel">
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Height" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="IsHitTestVisible" Value="True"/>
+                        <Setter Property="Height" Value="Auto"/>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CircleButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"/>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#00000000"/>
+                                        <GradientStop Offset="0.88" Color="#00000000"/>
+                                        <GradientStop Offset="1" Color="#80000000"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Ellipse Margin="10" x:Name="highlightCircle" >
+                                <Ellipse.Fill >
+                                    <LinearGradientBrush >
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="highlightCircle" Property="Fill">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
+                                            <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                            <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                            <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" X="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Here is the styling for the HelpInfo screen-->
+        <Style TargetType="Button" x:Key="ShowHelpInfo">
+            <Setter Property="Width" Value="{Binding ActualWidth}"/>
+            <Setter Property="Height" Value="{Binding ActualHeight}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="WrapPanel" x:Key="SurroundingPanel">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="BitmapEffect">
+                        <Setter.Value>
+                            <BlurBitmapEffect Radius="15" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Grid" x:Key="CanvasDetail">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#88000000"/>
+            <Setter Property="Panel.ZIndex" Value="5"/>
+            <Setter Property="Height" Value="{Binding ElementName=Window, Path=ActualHeight}"/>
+            <Setter Property="Width" Value="{Binding ElementName=Window, Path=ActualWidth}"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Style.Triggers>
+                <Trigger Property="Uid" Value="True">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="IsHitTestVisible" Value="False"/>
+                </Trigger>
+                <Trigger Property="Uid" Value="False">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="IsHitTestVisible" Value="True"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="LikedPainting">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="TextBlock.FontSize" Value="20" />
+            <Setter Property="TextBlock.Foreground" Value="White" />
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyling">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="#aa1E2436" />
+            <Setter Property="BorderBrush" Value="#aa1E2436" />
+            <Setter Property="Foreground" Value="#B7E66F" />
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Background="{Binding BackgroundColor}" SizeChanged="MainGrid_SizeChanged" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="SizeChanged">
+                <i:InvokeCommandAction Command="{Binding CheckWindowState}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <DockPanel x:Name="RootWindow" Panel.ZIndex="2" MouseLeftButtonDown="DragWindow">
+            <DockPanel Name="TitleBar" DockPanel.Dock="Top" Width="{Binding ActualWidth}" Background="#23000000">
+                <Image Source="/Images/Floppa icon.png" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40"/>
+                <Button x:Name="CloseButton"
+                    Click="CloseButton_Click"
+                    DockPanel.Dock="Right" 
+                    Background="Transparent" BorderBrush="Transparent" Height="25">
+                    <Image Source="{Binding CloseImages}" Height="20"/>
+                </Button>
+                <Button x:Name="MaxButton"
+                    Click="MaximizeButton_Click"
+                    DockPanel.Dock="Right"
+                    Background="Transparent" BorderBrush="Transparent" Height="25">
+                    <Image Source="{Binding WindowStateIconPath}" Height="19"/>
+                </Button>
+                <Button x:Name="MinButton"
+                    Click="MinimizeButton_Click"
+                    DockPanel.Dock="Right"
+                    Background="Transparent" BorderBrush="Transparent" Height="25">
+                    <Image Source="{Binding MinimizeImages}" Height="20"/>
+                </Button>
+                <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Foreground="{Binding TitleColor}">[Kunst Generator]</TextBlock>
+            </DockPanel>
+
+
+            <ContentControl Content="{Binding CurrentPage}" />
+        </DockPanel>
+        
+        <StackPanel Uid="{Binding SideMenuOpened}" Style="{StaticResource StylingSideMenuEffect}">
+            <!-- in this panel you get the different config menu options-->
+            <StackPanel Style ="{StaticResource StylingSideMenu}">
+                <TextBlock Foreground="#B7E66F" Height="80" HorizontalAlignment="Center" TextAlignment="Center" FontSize="35" Width="200" Margin="25,50,25,-30" Text="{DynamicResource MainWindow.Options}"/>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.Configuration}" Command="{Binding OpenConfigWindowCommand}"/>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.CanvasFrame}" Command="{Binding SwitchFrame}"/>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.AboutUs}" Command="{Binding OpenAboutUsCommand}"/>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.BackgroundColor}" />
+                <xctk:ColorPicker Opacity="0" Name="BackGroundPicker" Margin="0,-55,0,0" Width="200" Height="55" HorizontalAlignment="left" VerticalAlignment="Bottom" SelectedColor="{Binding Path=PickedColor}"/>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.Algorithm}" Command="{Binding SwitchDropDownMenu}"/>
+                <StackPanel Style="{StaticResource DropDownMenu}" IsEnabled="{Binding DropDownMenuOpened}">
+                    <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.ResetAlgorithm}" Command="{Binding ResetAlgorithmCommand}"/>
+                    <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.LoadAlgorithmData}" Command="{Binding LoadAlgorithmDataCommand}"/>
+                    <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="#B7E66F" FontSize="20" Content="{DynamicResource MainWindow.SaveAlgorithmData}" Command="{Binding SaveAlgorithmDataCommand}"/>
+                </StackPanel>
+            </StackPanel>
+            <Button BorderBrush="{x:Null}" Height="60" Width="60" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="20" Command="{Binding ChangeStateSideMenu}" Background="{x:Null}">
+                <Image Uid="{Binding SideMenuOpened}" Style="{StaticResource HamburgerImage}" Source="{Binding HamburgerImages}" Height="60" Width="60" Margin="-20"/>
+            </Button>
+        </StackPanel>
+
+        <Grid x:Name="CanvasDetailWindow" b:IsHidden="true"  Style="{StaticResource CanvasDetail}" Uid="{Binding CanvasDetailClosed}" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1.6*" />
+                <ColumnDefinition Width="1.6*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="9.5*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1" Margin="8" Grid.Row="1">
+                <Image Source="{Binding ImageInDetail}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="8" Grid.Row="1">
+                <StackPanel Style="{StaticResource LikedPainting}">
+                    <TextBlock Text="{Binding IterationNumber}"/>
+                </StackPanel>
+                <TextBlock Foreground="White" FontSize="20" Text=""/>
+                <StackPanel Style="{StaticResource LikedPainting}" Margin="0,8,0,0">
+                    <TextBlock Text="{Binding IterationsSurvived}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource LikedPainting}">
+                    <TextBlock Text="{Binding MutationCount}"/>
+                </StackPanel>
+                <StackPanel Margin="0,16,0,0">
+                    <Button Margin="0,4,0,4" Style="{StaticResource ButtonStyling}" Command="{Binding SaveImageCommand}" Content="{DynamicResource MainWindow.SaveCanvas}"/>
+                    <Button Margin="0,4,0,4" Style="{StaticResource ButtonStyling}" Command="{Binding CloseDetailWindow}" Content="{DynamicResource MainWindow.GoBack}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <WrapPanel Style="{StaticResource SurroundingPanel}" IsEnabled="{Binding CanvasDetailClosed}">
+            <WrapPanel.LayoutTransform>
+                <ScaleTransform x:Name="GridSize" CenterX="0" CenterY="0"
+                        ScaleX="{Binding Path=ScaleValue}"
+                        ScaleY="{Binding Path=ScaleValue}" />
+            </WrapPanel.LayoutTransform>
+
+            <!-- in this panel you will find the details of the LeftCanvas-->
+            <StackPanel Margin="0,10,100,0" Width="{Binding PanelWidth}" Height="{Binding CanvasPanelHeight}">
+                <ItemsControl Name="LeftCanvas" ItemsSource="{Binding LeftPanel.Shapes}" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas MouseEnter="leftPanel_MouseEnter" MouseLeave="leftPanel_MouseLeave" x:Name="leftPanel" IsItemsHost="True" Background="{Binding LeftPanel.Background}" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}" ClipToBounds="True" Cursor="Hand">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=leftPanel}" Command="{Binding OpenCanvasDetailWindowCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Button Content="{DynamicResource MainWindow.Preference}" Command="{Binding UpdatePanelCommand}" CommandParameter="LeftPanel" Style="{StaticResource ButtonStyling}" Width="200" Height="40" Margin="12" VerticalAlignment="Bottom"/>
+                <Canvas Style="{StaticResource ZoomInDetail}" x:Name="LeftPanelZoomInHover">
+                    <Image Style="{StaticResource ZoomInImage}" Source="/Images/zoom-in.png"/>
+                </Canvas>
+                <Canvas>
+                    <Image b:IsHidden="true" Source="/Images/thinwoodframe.png" Margin="0 0 0 0" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}" Stretch="Fill" IsHitTestVisible="False" Opacity="{Binding FrameState}">
+                        <Image.RenderTransform>
+                            <TranslateTransform Y="{Binding FrameHeight}" />
+                        </Image.RenderTransform>
+                    </Image>
+
+                </Canvas>
+
+            </StackPanel>
+
+            <!-- in this panel you will find the details of the RightCanvas-->
+            <StackPanel Margin="100,10,0,0" Width="{Binding PanelWidth}" Height="{Binding CanvasPanelHeight}">
+                <ItemsControl Name="RightCanvas" ItemsSource="{Binding RightPanel.Shapes}" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas MouseEnter="rightPanel_MouseEnter" MouseLeave="rightPanel_MouseLeave" x:Name="rightPanel" IsItemsHost="True" Background="{Binding RightPanel.Background}" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}" ClipToBounds="True" Cursor="Hand">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=rightPanel}" Command="{Binding OpenCanvasDetailWindowCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <Button Content="{DynamicResource MainWindow.Preference}" Command="{Binding UpdatePanelCommand}" CommandParameter="RightPanel" Style="{StaticResource ButtonStyling}" Width="200" Height="40"  Margin="12" VerticalAlignment="Bottom"/>
+                <Canvas Style="{StaticResource ZoomInDetail}" x:Name="RightPanelZoomInHover">
+                    <Image Style="{StaticResource ZoomInImage}" Source="/Images/zoom-in.png"/>
+                </Canvas>
+                <Canvas>
+                    <Image b:IsHidden="true" Source="/Images/thinwoodframe.png" Margin="0 0 0 0" Width="{Binding PanelWidth}" Height="{Binding PanelHeight}" Stretch="Fill" IsHitTestVisible="False" Opacity="{Binding FrameState}">
+                        <Image.RenderTransform>
+                            <TranslateTransform Y="{Binding FrameHeight}" />
+                        </Image.RenderTransform>
+                    </Image>
+                </Canvas>
+            </StackPanel>
+        </WrapPanel>
+        <ContentPresenter Grid.Column="0"/>
+
+        <!--Here you will find the button that can show the HelpInfo screen-->
+        <Button b:IsHidden="true"  Command="{Binding ShowHelpImages}" Style="{StaticResource ShowHelpInfo}" IsEnabled="{Binding IsHelpImageVisible}">
+            <Image b:IsHidden="true"  Source="/Images/HelpInfoImage.png" Stretch="Fill" StretchDirection="DownOnly" />
+        </Button>
+        <Button Height="50" Width="50" Command="{Binding ShowHelpImages}" Style="{StaticResource CircleButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,11,7">
+            <Image Source="/Images/questionmark.png"/>
+        </Button>
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SelectedColorChanged" SourceName="BackGroundPicker">
+            <i:InvokeCommandAction Command="{Binding BackGroundColorCommand}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCanvasShapes}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseUp" SourceObject="{Binding ElementName=CanvasDetailWindow}">
+            <i:InvokeCommandAction Command="{Binding CloseDetailWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</Window>

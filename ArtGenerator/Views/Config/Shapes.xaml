@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="ArtGenerator.Views.Config.Shapes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="540" d:DesignWidth="960">
+
+    <UserControl.Resources>
+        <Style TargetType="xctk:RangeSlider" x:Key="SmallerRangeSlider">
+            <Setter Property="HigherThumbBackground" Value="#FFADFF2F"/>
+            <Setter Property="LowerThumbBackground" Value="#FFADFF2F"/>
+            <Setter Property="LowerRangeBackground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#00ffffff" Offset="0.4"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.4"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.6"/>
+                        <GradientStop Color="#00ffffff" Offset="0.6"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RangeBackground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#00ffffff" Offset="0.3"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.3"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.7"/>
+                        <GradientStop Color="#00ffffff" Offset="0.7"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HigherRangeBackground">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#00ffffff" Offset="0.4"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.4"/>
+                        <GradientStop Color="#FFADFF2F" Offset="0.6"/>
+                        <GradientStop Color="#00ffffff" Offset="0.6"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ShowNumber">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Title">
+            <Setter Property="Margin" Value="0,6,0,6"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+    </UserControl.Resources>
+    <!--The shapes settings grid is seprated in two columns en three rows-->
+    <Grid VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Here are all the shapes preference buttons stored-->
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Top">
+                <Button  Height="60" Width="60" CommandParameter="Line" Command="{Binding EnableShapeCommand}" Background="{Binding LineBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/line.png" Margin="-15"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Curvedline" Command="{Binding EnableShapeCommand}" Background="{Binding CurvedLineBackground}" BorderBrush="Transparent" Margin="5">
+                    <Image Source="/Images/curved.png" Margin="-15" />
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Circle" Command="{Binding EnableShapeCommand}" Background="{Binding CircleBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/circle.png" Margin="-15"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Square" Command="{Binding EnableShapeCommand}" Background="{Binding SquareBackground}" BorderBrush="Transparent" Margin="5">
+                    <Image Source="/Images/square.png" Margin="-15"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="CustomShapes" Command="{Binding EnableShapeCommand}" Background="{Binding CustomShapeBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/addMask.png" Margin="-10"/>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Margin="10,0,0,0" VerticalAlignment="Top">
+                <Button  Height="60" Width="60" CommandParameter="Point" Command="{Binding EnableShapeCommand}" Background="{Binding PointBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/dots.png" Margin="-15"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Triangle" Command="{Binding EnableShapeCommand}" Background="{Binding TriangleBackground}" BorderBrush="Transparent" Margin="5">
+                    <Image Source="/Images/triangle.png" Margin="-15" />
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Star" Command="{Binding EnableShapeCommand}" Background="{Binding StarBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/star.png" Margin="-16"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="Scissors" Command="{Binding EnableShapeCommand}" Background="{Binding ScissorsBackground}" BorderBrush="Transparent" Margin="5">
+                    <Image Source="/Images/schaar.png" Margin="-10"/>
+                </Button>
+                <Button Height="60" Width="60"  CommandParameter="LocationDetection" Command="{Binding EnableShapeCommand}" Background="{Binding LocationDetectionBackground}" BorderBrush="Transparent">
+                    <Image Source="/Images/LocationDetection.png" Margin="-10"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <!--Button legend-->
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <StackPanel>
+                <Button Height="30" Width="30" Background="GreenYellow" BorderBrush="Transparent" Margin="5"/>
+                <Button Height="30" Width="30" Background="OrangeRed" BorderBrush="Transparent" Margin="5"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Height="30" Width="60" Margin="-5,5,5,5" Text="= Aan" Padding="5" Foreground="White"/>
+                <TextBlock Height="30" Width="60" Margin="-5,5,5,5" Text="= Uit" Padding="5" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Here all the sliders stored-->
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource Title}" Margin="0,0,0,6" Text="{DynamicResource ShapeWindow.ShapeSize}"/>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MinShapeSize}"/>
+                <xctk:RangeSlider x:Name="Size"
+                Width="150" Maximum="300" Minimum="10" LowerValue="{Binding Variables.MinShapeSize}" HigherValue="{Binding Variables.MaxShapeSize}" Step="1"
+                Style="{StaticResource SmallerRangeSlider}" AutoToolTipPlacement="BottomRight"/>
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MaxShapeSize}"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource Title}" Text="{DynamicResource ShapeWindow.ShapeBorderSize}"/>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MinBorderSize}"/>
+                <xctk:RangeSlider x:Name="Border"
+                Width="150" Maximum="50" Minimum="0" LowerValue="{Binding Variables.MinBorderSize}" HigherValue="{Binding Variables.MaxBorderSize}" Step="1"
+                Style="{StaticResource SmallerRangeSlider}" AutoToolTipPlacement="BottomRight"/>
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MaxBorderSize}"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource Title}" Text="{DynamicResource ShapeWindow.ShapeSkewing}"/>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MinSkewing}"/>
+                <xctk:RangeSlider x:Name="Rotation"
+                Width="150" Minimum="-100" Maximum="100" LowerValue="{Binding Variables.MinSkewing}" HigherValue="{Binding Variables.MaxSkewing}" Step="1"
+                Style="{StaticResource SmallerRangeSlider}" AutoToolTipPlacement="BottomRight"/>
+                <TextBlock Style="{StaticResource ShowNumber}" Text="{Binding Variables.MaxSkewing}"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource Title}" Text="{DynamicResource IterationWindow.ChanceToHaveNoFill}"/>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <Slider Width="180" Minimum="0" Maximum="1" Value="{Binding Variables.ChanceToBeHollow}" Foreground="#bbADFF2F" IsSnapToTickEnabled="True" TickFrequency="0.01" />
+                <TextBlock Style="{StaticResource ShowNumber}" Width="28" Text="{Binding Variables.ChanceToBeHollow}" />
+            </StackPanel>
+
+            <!-- Here you can Apply or Save the changes -->
+            <Grid Margin="0,10,0,0" HorizontalAlignment="Center" MaxWidth="230">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Command="{Binding CancelConfigCommand}" Content="{DynamicResource ConfigWindow.CancelConfigChanges}" Margin="0,0,10,0" Width="100" Background="#FFADFF2F" BorderBrush="#FFADFF2F"/>
+                <Button Grid.Column="1" Grid.Row="0" Command="{Binding SaveConfigCommand}" Content="{DynamicResource ConfigWindow.SaveConfig}" Width="100" Background="#FFADFF2F" BorderBrush="#FFADFF2F"/>
+                <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  Command="{Binding ResetConfigCommand}" Margin="0,8,0,0" Content="{DynamicResource ConfigWindow.LoadDefaultConfig}" Width="210" Background="#FFADFF2F"  BorderBrush="#FFADFF2F"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Here you can see an example of the shapes -->
+        <StackPanel Grid.Column="2">
+            <ItemsControl Name="tmp" ItemsSource="{Binding TestShapes}" Width="300" Height="320">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="300" Height="320" ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="HigherValueChanged" SourceName="Border">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LowerValueChanged" SourceName="Border">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="HigherValueChanged" SourceName="Size">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LowerValueChanged" SourceName="Size">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="HigherValueChanged" SourceName="Rotation">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LowerValueChanged" SourceName="Rotation">
+            <i:InvokeCommandAction Command="{Binding OnShapeChange}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+</UserControl>

@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"   
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Main Page-->
+    <system:String x:Key="MainWindow.Preference">Mijn Voorkeur</system:String>
+    <system:String x:Key="MainWindow.SaveCanvas">Kunstwerk Opslaan</system:String>
+    <system:String x:Key="MainWindow.GoBack">Terug gaan</system:String>
+    
+    <!-- Side Menu on Main Page -->
+    <system:String x:Key="MainWindow.Options">Opties</system:String>
+    <system:String x:Key="MainWindow.Configuration">Configuratie</system:String>
+    <system:String x:Key="MainWindow.CanvasFrame">Kunst Frame</system:String>
+    <system:String x:Key="MainWindow.AboutUs">Wie zijn wij?</system:String>
+    <system:String x:Key="MainWindow.BackgroundColor">Achtergrond kleur</system:String>
+    <system:String x:Key="MainWindow.Algorithm">Algoritme</system:String>
+    <system:String x:Key="MainWindow.ResetAlgorithm">Reset Algoritme</system:String>
+    <system:String x:Key="MainWindow.LoadAlgorithmData">Algoritme inladen</system:String>
+    <system:String x:Key="MainWindow.SaveAlgorithmData">Algoritme opslaan</system:String>
+
+    <!-- Detail Page -->
+    <system:String x:Key="DetailWindow.Iteration">Iteratie: %number%</system:String>
+    <system:String x:Key="DetailWindow.PaintingLikes">Dit schilderij is %number% keer geliked</system:String>
+    <system:String x:Key="DetailWindow.PaintingMutation">Dit schilderij is %number% keer gemuteerd</system:String>
+
+    <!-- About us page -->
+    <system:String x:Key="AboutUsWindow.AboutUs">Wie zijn wij?</system:String>
+    <system:String x:Key="AboutUsWindow.InformationBehindTheDevelopersOfThisApplication">Wij zijn vijf studenten op het HBO-ICT die de richting Software Engineer volgen op het Windesheim. Voor het vak SDL was er keuze uit meerdere projecten van verschillende opdrachtgevers. De voorkeur van ons Team ging naar dit project uit, De ArtGenerator. Onze opdrachtgever Jan Coenen is van beroep kunstenaar. Jan was opzoek naar een applicatie die aan de hand van de voorkeur van de gebruiker na een aantal rondes een perfect kunstwerk kan genereren.</system:String>
+    <system:String x:Key="AboutUsWindow.ArtGeneratorTitle">De ArtGenerator</system:String>
+    <system:String x:Key="AboutUsWindow.InformationAboutTheArtGenerator">De gebruiker krijgt twee schilderijen om uit te kiezen en door een aantal keer zijn voorkeur te geven leert het algoritme wat de voorkeuren van de gebruiker is. Hiernaast kan de gebruiker in de configuratie de standaard kunstwerk waardes aanpassen, zodat die dichter bij zijn perfecte kunstwerk kan komen. De eerste aantal schilderijen worden random gegeneerd zodat het algoritme hiervan kan leren, dit noemen we de leerfase. Hier verzamelt het alle informatie van de eerste gekozen schilderijen om vervolgens deze schilderijen te vergelijken en te leren waar jouw interesse ligt. Vanuit het leerfase zal het algoritme het eerste kunstwerk generen</system:String>
+    
+    <!-- Config Page -->
+    <system:String x:Key="ConfigWindow.Configuration">Configuratie</system:String>
+    <system:String x:Key="ConfigWindow.Shape">Vorm</system:String>
+    <system:String x:Key="ConfigWindow.General">Algemeen</system:String>
+    <system:String x:Key="ConfigWindow.CustomShape">Eigen vorm</system:String>
+    <system:String x:Key="ConfigWindow.SaveConfig">Opslaan</system:String>
+    <system:String x:Key="ConfigWindow.CancelConfigChanges">Annuleren</system:String>
+    <system:String x:Key="ConfigWindow.LoadDefaultConfig">Reset Config</system:String>
+    <system:String x:Key="ConfigWindow.Miscalleneous">Willekeurig</system:String>
+    <system:String x:Key="ConfigWindow.ConfigSaved">Opgeslagen!</system:String>
+    <system:String x:Key="ConfigWindow.ConfigChanged">Zorg dat je de config opslaat, anders zal je instellingen straks kwijt raken.</system:String>
+    
+    <!-- Shapes Page -->
+    <system:String x:Key="ShapeWindow.ShapeSize">Vorm Grootte</system:String>
+    <system:String x:Key="ShapeWindow.ShapeBorderSize">Border Grootte van Vormen</system:String>
+    <system:String x:Key="ShapeWindow.ShapeSkewing">3D transformatie van vormen</system:String>
+
+    <!-- General Page -->
+    <system:String x:Key="IterationWindow.MaxShapesPerParent">Maximaal aantal Vormen per Kunstwerk</system:String>
+    <system:String x:Key="IterationWindow.StartCalculationAt">Start Calculaties na x Generaties</system:String>
+    <system:String x:Key="IterationWindow.ChanceToMutate">Kans om te muteren</system:String>
+    <system:String x:Key="IterationWindow.ChanceToHaveNoFill">Kans om geen vulling te hebben</system:String>
+    <system:String x:Key="IterationWindow.OpenArtGeneratorFolder">Open ArtGenerator Folder</system:String>
+    <system:String x:Key="IterationWindow.ChangeLanguage">Taal veranderen</system:String>
+    <system:String x:Key="IterationWindow.BackgroundType">Achtergrond Type</system:String>
+
+</ResourceDictionary>

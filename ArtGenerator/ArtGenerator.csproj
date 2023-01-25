@@ -1,0 +1,139 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\addMask.png" />
+    <None Remove="Images\arrow.png" />
+    <None Remove="Images\back.png" />
+    <None Remove="Images\bin.png" />
+    <None Remove="Images\cancel.png" />
+    <None Remove="Images\circle.png" />
+    <None Remove="Images\curved.png" />
+    <None Remove="Images\Denzel.jpeg" />
+    <None Remove="Images\diamant.jpg" />
+    <None Remove="Images\dots.png" />
+    <None Remove="Images\eraser.png" />
+    <None Remove="Images\eye.png" />
+    <None Remove="Images\Github.png" />
+    <None Remove="Images\Floppa icon.png" />
+    <None Remove="Images\Hamburger-Wit.png" />
+    <None Remove="Images\Hamburger.png" />
+    <None Remove="Images\HelpInfoImage.png" />
+    <None Remove="Images\HelpInfoImages 2.png" />
+    <None Remove="Images\HelpInfoImages.jpg" />
+    <None Remove="Images\HelpInfoImages.png" />
+    <None Remove="Images\hold.png" />
+    <None Remove="Images\info-screen-shape-window.jpg" />
+    <None Remove="Images\Jeannot.jpeg" />
+    <None Remove="Images\Karl.jpeg" />
+    <None Remove="Images\keys.png" />
+    <None Remove="Images\layer.png" />
+    <None Remove="Images\layer_minus.png" />
+    <None Remove="Images\line.png" />
+    <None Remove="Images\LinkedIn.png" />
+    <None Remove="Images\LocationDetection.png" />
+    <None Remove="Images\magnifying-glass-min.png" />
+    <None Remove="Images\magnifying-glass-plus.png" />
+    <None Remove="Images\mask.png" />
+    <None Remove="Images\Max.jpeg" />
+    <None Remove="Images\Navigation\close-white.png" />
+    <None Remove="Images\Navigation\close.png" />
+    <None Remove="Images\Navigation\maximize-white.png" />
+    <None Remove="Images\Navigation\maximize.png" />
+    <None Remove="Images\Navigation\minimize-white.png" />
+    <None Remove="Images\Navigation\minimize.png" />
+    <None Remove="Images\Navigation\minimize2.png" />
+    <None Remove="Images\Navigation\restore-white.png" />
+    <None Remove="Images\Navigation\restore.png" />
+    <None Remove="Images\pen.png" />
+    <None Remove="Images\question-mark.png" />
+    <None Remove="Images\questionmark.png" />
+    <None Remove="Images\Roy.jpeg" />
+    <None Remove="Images\save.png" />
+    <None Remove="Images\schaar.png" />
+    <None Remove="Images\square.png" />
+    <None Remove="Images\star.png" />
+    <None Remove="Images\thinwoodframe.png" />
+    <None Remove="Images\thumbnail.png" />
+    <None Remove="Images\triangle.png" />
+    <None Remove="Images\Vergroot.png" />
+    <None Remove="Images\woodframe.png" />
+    <None Remove="Images\zoom-in.png" />
+    <None Remove="Views\Config\vierkant.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
+  <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.37" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\addMask.png" />
+    <Resource Include="Images\back.png" />
+    <Resource Include="Images\bin.png" />
+    <Resource Include="Images\cancel.png" />
+    <Resource Include="Images\circle.png" />
+    <Resource Include="Images\curved.png" />
+    <Resource Include="Images\Denzel.jpeg" />
+    <Resource Include="Images\dots.png" />
+    <Resource Include="Images\eraser.png" />
+    <Resource Include="Images\eye.png" />
+    <Resource Include="Images\Github.png" />
+    <Resource Include="Images\HelpInfoImage.png" />
+    <Resource Include="Images\hold.png" />
+    <Resource Include="Images\info-screen-shape-window.jpg" />
+    <Resource Include="Images\Jeannot.jpeg" />
+    <Resource Include="Images\Karl.jpeg" />
+    <Resource Include="Images\Floppa icon.png" />
+    <Resource Include="Images\Hamburger-Wit.png" />
+    <Resource Include="Images\Hamburger.png" />
+    <Resource Include="Images\layer.png" />
+    <Resource Include="Images\layer_minus.png" />
+    <Resource Include="Images\line.png" />
+    <Resource Include="Images\LinkedIn.png" />
+    <Resource Include="Images\LocationDetection.png" />
+    <Resource Include="Images\magnifying-glass-plus.png" />
+    <Resource Include="Images\Max.jpeg" />
+    <Resource Include="Images\Navigation\close-white.png" />
+    <Resource Include="Images\Navigation\close.png" />
+    <Resource Include="Images\Navigation\maximize-white.png" />
+    <Resource Include="Images\Navigation\maximize.png" />
+    <Resource Include="Images\Navigation\minimize-white.png" />
+    <Resource Include="Images\Navigation\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Navigation\restore-white.png" />
+    <Resource Include="Images\Navigation\restore.png" />
+    <Resource Include="Images\pen.png" />
+    <Resource Include="Images\question-mark.png" />
+    <Resource Include="Images\questionmark.png" />
+    <Resource Include="Images\Roy.jpeg" />
+    <Resource Include="Images\save.png" />
+    <Resource Include="Images\schaar.png" />
+    <Resource Include="Images\square.png" />
+    <Resource Include="Images\star.png" />
+    <Resource Include="Images\thinwoodframe.png" />
+    <Resource Include="Images\thumbnail.png" />
+    <Resource Include="Images\triangle.png" />
+    <Resource Include="Images\Vergroot.png" />
+    <Resource Include="Images\zoom-in.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Languages\English.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="ArtGenerator.Views.Config.CustomShapeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArtGenerator.Views"
+        xmlns:b="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d" Height="450" Width="660">
+
+    <UserControl.Resources>
+        <Style x:Key="imageButton" TargetType="Button">
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+        <Style x:Key="CanvasStyling" TargetType="Canvas">
+            <Setter Property="Background" Value="{Binding BackgroundImage}"/>
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="Height" Value="500"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <TranslateTransform X="{Binding ImageLeft}" Y="{Binding ImageTop}"/>
+                        <ScaleTransform ScaleX="{Binding ImageScale}" ScaleY="{Binding ImageScale}" />
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Uid" Value="Pen">
+                    <Setter Property="Cursor" Value="Pen"/>
+                </Trigger>
+                <Trigger Property="Uid" Value="Eraser">
+                    <Setter Property="Cursor" Value="None"/>
+                </Trigger>
+                <Trigger Property="Uid" Value="Hold">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="InfoTextStyling" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="16,0,0,0"/>
+        </Style>
+        <Style x:Key="InfoPageStyling" TargetType="Button">
+            <Setter Property="Width" Value="{Binding ActualWidth}"/>
+            <Setter Property="Height" Value="{Binding ActualHeight}"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="true">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Button b:IsHidden="true" Style="{StaticResource InfoPageStyling}" IsEnabled="{Binding IsInfoPageVisible}" Command="{Binding SwitchVisibilityInfoPage}" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Image Source="/Images/info-screen-shape-window.jpg"/>
+        </Button>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <ItemsControl Margin="3,0,0,0" Panel.ZIndex="2" ClipToBounds="True" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ToolCanvas}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Background="#0000" Style="{StaticResource CanvasStyling}" Uid="{Binding ActiveTool}" IsItemsHost="True" ClipToBounds="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding UsingToolOnCanas}" PassEventArgsToCommand="True"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseWheel">
+                                    <i:InvokeCommandAction Command="{Binding MouseWheelUsedOnCanvas}" PassEventArgsToCommand="True"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding HoverOverCanvas}" PassEventArgsToCommand="True"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Canvas>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <ItemsControl Margin="3,0,0,0" ClipToBounds="True" Grid.Column="0" Grid.Row="0" ItemsSource="{Binding LinesOnCanvas}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Style="{StaticResource CanvasStyling}" IsItemsHost="True" ClipToBounds="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+        </StackPanel>
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Background="{Binding PenBackground}" Command="{Binding ActiveToolCommand}" CommandParameter="Pen" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/pen.png"/>
+                </Button>
+                <Button Grid.Column="1" Background="{Binding EraserBackground}" Command="{Binding ActiveToolCommand}" CommandParameter="Eraser" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/eraser.png"/>
+                </Button>
+                <Button Grid.Column="2" Background="{Binding ZoomBackground}" Command="{Binding ActiveToolCommand}" CommandParameter="Zoom" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/magnifying-glass-plus.png"/>
+                </Button>
+                <Button Grid.Column="0" Grid.Row="1" Background="{Binding HoldBackground}" Command="{Binding ActiveToolCommand}" CommandParameter="Hold" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/hold.png"/>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="1" Command="{Binding ChangeBackgroundImage}" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/thumbnail.png"/>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource imageButton}" Command="{Binding SwitchVisibilityInfoPage}">
+                    <Image Source="/Images/question-mark.png"/>
+                </Button>
+
+                <Button Grid.Column="0" Grid.Row="2" Style="{StaticResource imageButton}" Command="{Binding ReloadOldSavedShape}" >
+                    <Image Source="/Images/cancel.png"/>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="2" FontSize="12" Background="{Binding TrueMaskBackground}" Style="{StaticResource imageButton}" Command="{Binding SwitchShapeView}">
+                    <Image Source="/Images/eye.png"/>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="2" Command="{Binding UndoPreviousEventCommand}" Style="{StaticResource imageButton}">
+                    <Image Source="/Images/back.png"/>
+                </Button>
+
+                <Button Grid.Column="0" Grid.Row="4" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding IncludeFirstBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="includeFirst">
+                    <Image Source="/Images/layer.png" Margin="-10" />
+                </Button>
+
+                <Button Grid.Column="1" Grid.Row="4" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding IncludeSecondBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="includeSecond">
+                    <Image Source="/Images/layer.png" Margin="-10" />
+                </Button>
+                <Button Grid.Column="2" Grid.Row="4" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding IncludeThirdBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="includeThird">
+                    <Image Source="/Images/layer.png" Margin="-10" />
+                </Button>
+                <Button Grid.Column="0" Grid.Row="5" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding ExcludeFirstBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="excludeFirst">
+                    <Image Source="/Images/layer_minus.png" Margin="-10" />
+                </Button>
+                <Button Grid.Column="1" Grid.Row="5" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding ExcludeSecondBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="excludeSecond">
+                    <Image Source="/Images/layer_minus.png" Margin="-10" />
+                </Button>
+                <Button Grid.Column="2" Grid.Row="5" ClipToBounds="True" Style="{StaticResource imageButton}" Background="{Binding ExcludeThirdBackground}" Command="{Binding SelectDrawingBlock}" CommandParameter="excludeThird">
+                    <Image Source="/Images/layer_minus.png" Margin="-10" />
+                </Button>
+
+                <Grid Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Style="{StaticResource imageButton}" Command="{Binding SaveGeometryCommand}">
+                        <Image Source="/Images/save.png"/>
+                    </Button>
+                    <Button Grid.Column="1" Style="{StaticResource imageButton}" Command="{Binding ClearCanvasOfShapes}">
+                        <Image Source="/Images/bin.png"/>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="KeyDown" SourceName="MainGrid">
+            <i:InvokeCommandAction Command="{Binding OnPressingKey}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</UserControl>

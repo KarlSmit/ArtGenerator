@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"   
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Main Page-->
+    <system:String x:Key="MainWindow.Preference">My Preference</system:String>
+    <system:String x:Key="MainWindow.SaveCanvas">Save Painting</system:String>
+    <system:String x:Key="MainWindow.GoBack">Go Back</system:String>
+
+    <!-- Side Menu on Main Page -->
+    <system:String x:Key="MainWindow.Options">Options</system:String>
+    <system:String x:Key="MainWindow.Configuration">Configuration</system:String>
+    <system:String x:Key="MainWindow.CanvasFrame">Canvas Frame</system:String>
+    <system:String x:Key="MainWindow.AboutUs">Who are we?</system:String>
+    <system:String x:Key="MainWindow.BackgroundColor">Background Color</system:String>
+    <system:String x:Key="MainWindow.Algorithm">Algorithm</system:String>
+    <system:String x:Key="MainWindow.ResetAlgorithm">Reset Algoritme</system:String>
+    <system:String x:Key="MainWindow.LoadAlgorithmData">Load in Algorithm</system:String>
+    <system:String x:Key="MainWindow.SaveAlgorithmData">Save Algorithm</system:String>
+
+    <!-- Detail Page -->
+    <system:String x:Key="DetailWindow.Iteration">Iteration: %number%</system:String>
+    <system:String x:Key="DetailWindow.PaintingLikes">This painting has been liked %number% times</system:String>
+    <system:String x:Key="DetailWindow.PaintingMutation">This painting has mutated %number% times</system:String>
+
+    <!-- About us page -->
+    <system:String x:Key="AboutUsWindow.AboutUs">Who are we?</system:String>
+    <system:String x:Key="AboutUsWindow.InformationBehindTheDevelopersOfThisApplication">We are five students at HBO-ICT who are studying to be Software Engineers at Windesheim. For the class SDL we had to choose a project out a few clients. The preference of the team went to this project, The ArtGenerator. Our Client, Jan Coenen is an artist by profession. He was looking for an application that would use the users preferences to make the perfect painting.</system:String>
+    <system:String x:Key="AboutUsWindow.ArtGeneratorTitle">The ArtGenerator</system:String>
+    <system:String x:Key="AboutUsWindow.InformationAboutTheArtGenerator">The user sees 2 paintings to choose from. By choosing their preference a few times the Algorithm will start to use the preferences given by the user. The application also has a Configuration menu where standard values can be changes, so the user has more control over what sort of paintings come out of the algorithm. The first few paintings are randomly generated so the Algorithm can learn the users preference. This is called the learning phase, where the algorithm gathers data on the user and calculates a painting that generates something that comes close to the users preferences.</system:String>
+    
+    <!-- Config Page -->
+    <system:String x:Key="ConfigWindow.Configuration">Configuration</system:String>
+    <system:String x:Key="ConfigWindow.Shape">Shape</system:String>
+    <system:String x:Key="ConfigWindow.General">General</system:String>
+    <system:String x:Key="ConfigWindow.CustomShape">Custom Shape</system:String>
+    <system:String x:Key="ConfigWindow.SaveConfig">Save</system:String>
+    <system:String x:Key="ConfigWindow.CancelConfigChanges">Cancel</system:String>
+    <system:String x:Key="ConfigWindow.LoadDefaultConfig">Reset Config</system:String>
+    <system:String x:Key="ConfigWindow.Miscalleneous">Miscalleneous</system:String>
+    <system:String x:Key="ConfigWindow.ConfigSaved">Saved!</system:String>
+    <system:String x:Key="ConfigWindow.ConfigChanged">Make sure you save the config, else you'll lose all your settings.</system:String>
+
+    <!-- Shapes Page -->
+    <system:String x:Key="ShapeWindow.ShapeSize">Shape Size</system:String>
+    <system:String x:Key="ShapeWindow.ShapeBorderSize">Border Size of Shapes</system:String>
+    <system:String x:Key="ShapeWindow.ShapeSkewing">3D transformation for Shapes</system:String>
+
+    <!-- General Page -->
+    <system:String x:Key="IterationWindow.MaxShapesPerParent">Maximum Shape Count per Painting</system:String>
+    <system:String x:Key="IterationWindow.StartCalculationAt">Start Algorithm at x Generations</system:String>
+    <system:String x:Key="IterationWindow.ChanceToMutate">Chance to mutate</system:String>
+    <system:String x:Key="IterationWindow.ChanceToHaveNoFill">Chance to have no fill</system:String>
+    <system:String x:Key="IterationWindow.OpenArtGeneratorFolder">Open ArtGenerator Folder</system:String>
+    <system:String x:Key="IterationWindow.ChangeLanguage">Change Language</system:String>
+    <system:String x:Key="IterationWindow.BackgroundType">Background Type</system:String>
+
+</ResourceDictionary>
